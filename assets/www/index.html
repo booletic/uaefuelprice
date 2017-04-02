@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+		<script src="cordova.js"></script>
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter" ng-controller="FuelCtrl" class="platform-android platform-cordova platform-webview">
+    <ion-pane>
+      <ion-header-bar class="bar-dark">
+        <h1 class="title">UAE Fuel Price</h1>
+      </ion-header-bar>
+      <ion-content>
+        <ion-refresher
+          on-refresh="doRefresh()">
+        </ion-refresher>
+				<div class="card" ng-show="!fuelprice">
+					<div class="item item-text-wrap item-thumbnail-left">
+						<img src="img/start.png">
+						<h2>Peace be upon you, my name is Bon-bon, pull down to start or press back to quit.</h2>
+					</div>
+					<div class="item item-text-wrap">								
+						<p>DISCLAIMER: Please note that this application is experimental. In using the application, you agree that the developer of this application is not, or will not be, liable or otherwise responsible for any decision made or any action taken or any action not taken due to your use of this application.</p>
+					</div>
+				</div>
+        <div class="card" ng-show="fuelforecast">
+          <div class="item item-text-wrap item-thumbnail-left">
+            <img src="img/{{fuelforecast.prediction}}.png">
+            <h2>{{fuelforecast.title}}</h2>
+            <h3>{{fuelforecast.comment}}</h3>
+          </div>
+        </div>
+        <div class="list">
+          <div class="item item-text-wrap item-avatar-left" collection-repeat="fuel in fuelprice">
+            <img src="img/{{fuel.code}}.png">
+            <h2>{{fuel.product}}</h2>
+            <h3>{{fuel.this_month}}: {{fuel.price | number:2}} AED</h3>
+            <h4>{{fuel.last_month}}: {{fuel.lastprice | number:2}} AED</h4>
+          </div>
+        </div>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
